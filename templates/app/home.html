@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %} {% if category %} {{ category.name }} {% else %} Blog {% endif %} {% endblock %}
+
+{% block content %}
+    {% for blog in blogs %}
+        <p><a href="{% url 'app:blog_detail' blog.slug %}">{{ blog.title }}</a></p>
+        <img src="{{ blog.image.url }}" alt="">
+        <p>{{ blog.text|truncatechars:100}}</p>
+        <p>Auther: {{ blog.auther.username }} Date: {{ blog.created|date:"d.m.Y H:m" }} </p>
+    {% endfor %}
+    <hr>
+
+
+
+    <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    {% if blogs.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page={{ blogs.previous_page_number }}">Previous</a></li>
+    {% endif %}
+     {% for i in blogs.paginator.page_range %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endfor %}
+    {% if blogs.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{ blogs.next_page_number }}">Next</a></li>
+    {% endif %}
+  </ul>
+</nav>
+{% endblock %}

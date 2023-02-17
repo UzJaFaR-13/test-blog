@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %} User List {% endblock %}
+
+{% block content %}
+    <form method="get">
+        <input type="search" name="search" >
+        <button type="submit" > search </button>
+    </form>
+    <div class="row" >
+        <div class="col-3" > User Nane </div>
+        <div class="col-3" > First Name </div>
+        <div class="col-3" > List Login </div>
+        <div class="col-3" > Date Joined </div>
+    </div>
+    {% for user in users %}
+    <div class="row" >
+        <div class="col-3" > {{ user.username }} </div>
+        <div class="col-3" > {{ user.first_name }} </div>
+        <div class="col-3" > {{ user.list_login }} </div>
+        <div class="col-3" > {{ user.date_joined }} </div>
+    </div>
+    {% endfor %}
+{% endblock %}

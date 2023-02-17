@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ blog.title }} {% endblock %}
+
+{% block content %}
+        <p>{{ blog.title }}</p>
+        <img src="{{ blog.image.url }}" alt="">
+        <p>{{ blog.text}}</p>
+        <p>Auther: {{ blog.auther.username }} Date: {{ blog.created|date:"d.m.Y H:m" }} | {{  blog.view }} </p>
+        <hr>
+        {% if user == blog.auther %}
+        <a href="{% url 'app:blog_update' blog.slug %}" class="btn btn-success" > Update </a>
+        <a href="#" class="btn btn-danger " > Update </a>
+        {% endif %}
+        <hr>
+        <div class="row">
+                <div class="col-6" >
+                        Comment
+                        {% for comment in blog.comment.all %}
+                        <p>
+                                {{ comment.user.username }}
+                        </p>
+                        <p>
+                                {{ comment.text }}
+                        </p>
+                        {% endfor %}
+                </div>
+                <div class="col-6" >
+                {% if user.is_authenticated %}
+                <form action="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" > Izoh qoldirish </button>
+                </form>
+                {% endif %}
+
+                </div>
+        </div>
+
+{% endblock %}

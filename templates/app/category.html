@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} category {% endblock %}
+
+{% block content %}
+    {% for category in categories %}
+        <h2><a href="{% url 'app:blog_category' category.slug %}">{{ category.name }} |</a>  {{ category.blog.count }} </h2>
+        {% if category.image %}
+            <img src="{{ category.image.url }}" alt="">
+        {% else %}
+            <img src="">
+        {% endif %}
+        <p>{{ category.text }}</p>
+    {% endfor %}
+{% endblock %}
+
+

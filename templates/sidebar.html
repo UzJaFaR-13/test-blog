@@ -1,0 +1,4 @@
+{% for category in categories %}
+<p><a href="{% url 'app:blog_category' category.slug %}"> {{ category.name }}</a> </p>
+{% endfor %}
+
